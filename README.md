@@ -74,7 +74,7 @@ The forever method may be used to store an item in the cache permanently. Since 
 ```
 Cache.forever('key', 'value');
 ```
-## Removing Items From The Cache
+### Removing Items From The Cache
 You may remove items from the cache using the forget method:
 ```
 Cache.forget('key');
