@@ -27,12 +27,12 @@ const userCallbackObject = {
     phone: '0342.831.832',
 };
 
-function serverApi() {
+serverApi = () => {
     const server = http.createServer(function (req, res) {
         res.end(JSON.stringify(userCallbackObject))
     });
     return request(server).get('/').set('Accept', 'application/json');
-}
+};
 
 describe('Cache', function () {
     it('Store If Not Present', function () {
@@ -75,7 +75,7 @@ describe('Cache', function () {
         assert.deepStrictEqual(Cache.get('test_cache_callback'), userCallbackObject);
     });
 
-    it('Store Asynchronous', async function () {
+    it('Store Asynchronous', async () => {
         Cache.clear();
         assert.strictEqual(Cache.has('test_cache_callback'), false);
 
