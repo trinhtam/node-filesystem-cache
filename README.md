@@ -1,5 +1,5 @@
 # node-filesystem-cache
-Module cache for NodeJs using Filesystem.
+Module cache for NodeJs using Filesystem. Storing string, integer, boolean, object, class,...
 
 ## Installation
 ```
@@ -7,6 +7,9 @@ npm install node-filesystem-cache --save
 ```
 
 ## Configuration
+File
+
+Custom cache directory
 ```
 const CacheApi = require('node-filesystem-cache');
 const cachePath = __dirname + '/cache';

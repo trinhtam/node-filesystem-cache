@@ -14,6 +14,24 @@ if(!fs.existsSync(cachePath)) {
 const Cache = new CacheApi(cachePath);
 
 const seconds = 20000;
+
+class classObjectTest {
+    _id = 0;
+    _name = null;
+    constructor(id, name) {
+        this._id = id;
+        this._name = name;
+    }
+
+    getId() {
+        return this._id;
+    }
+
+    getName() {
+        return this._name;
+    }
+}
+
 const userObject = {
     id: 1,
     name: 'tamtrinh',
@@ -33,7 +51,7 @@ serverApi = () => {
     });
     return request(server).get('/').set('Accept', 'application/json');
 };
-
+Cache.clear();
 describe('Cache', function () {
     it('Store If Not Present', function () {
         const value = Cache.add('test_cache', userObject, seconds);
@@ -60,6 +78,34 @@ describe('Cache', function () {
         const value = Cache.pull('test_cache');
         assert.deepStrictEqual(value, userObject);
         assert.strictEqual(Cache.has('test_cache'), false);
+    });
+    it('Storing Integer', function () {
+        Cache.clear();
+
+        const value = Cache.put('test_cache', 10, seconds);
+        assert.deepStrictEqual(value, 10);
+        assert.deepStrictEqual(Cache.get('test_cache'), 10);
+    });
+
+    it('Storing Boolean', function () {
+        Cache.clear();
+
+        const value = Cache.put('test_cache', true, seconds);
+        assert.deepStrictEqual(value, true);
+        assert.deepStrictEqual(Cache.get('test_cache'), true);
+    });
+
+    it('Storing Class', function () {
+        Cache.clear();
+        const id = 0;
+        const name = 'tamtrinh';
+        const object = new classObjectTest(id, name);
+        const value = Cache.put('test_cache', object, seconds);
+        assert.deepStrictEqual(value, object);
+        const cache_value = Cache.get('test_cache');
+        assert.deepStrictEqual(cache_value, object);
+        assert.deepStrictEqual(cache_value.getId(), id);
+        assert.deepStrictEqual(cache_value.getName(), name);
     });
 
     it('Store Synchronous', async function () {
