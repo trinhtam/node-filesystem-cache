@@ -7,8 +7,6 @@ npm install node-filesystem-cache --save
 ```
 
 ## Configuration
-File
-
 Custom cache directory
 ```
 const CacheApi = require('node-filesystem-cache');
